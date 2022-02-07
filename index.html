@@ -2,8 +2,104 @@
 <html>
     <head>
         <title>BlockTanks Map Generator</title>
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        Test!
+        <div id="main-content">
+            <div class="title">
+                BlockTanks.io Map Generator
+            </div>
+            <div id="main-controls">
+                <span class="seed-settings">
+                    <label for="seed-number">Seed:</label>
+                    <input type="number" min="0" id="seed-number">
+                </span>
+                <input type="button" value="Randomize" id="randomize-button">
+                <span class="delay-settings">
+                    <label>Animation Delay:</label>
+                    <input type="number" min="0" id="delay-number"> ms
+                </span>
+            </div>
+            <div id="main-panel">
+                <canvas id="map-canvas"></canvas>
+                <div id="algorithms-panel">
+                    <div id="algorithms-settings">
+                        <div>
+                            <label>Preset:</label>
+                            <select id="preset-select">
+                                <option value="preset">Preset</option>
+                            </select>
+                        </div>
+                        <div>
+                            <table class="settings-table">
+                                <tr>
+                                    <td>
+                                        <label>Width:</label>
+                                    </td>
+                                    <td>
+                                        <input type="number" min="3" max="75">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Height:</label>
+                                    </td>
+                                    <td>
+                                        <input type="number" min="3" max="75">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>X Symmetry:</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Y Symmetry:</label>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="algorithms-list">
+                        <div class="algorithm">
+                            <div>
+                                <span>Algorithm Name</span>
+                                <span>▲</span>
+                                <span>▼</span>
+                                <span>X</span>
+                            </div>
+                            <div>
+                                <table class="settings-table">
+                                    <tr>
+                                        <td>Parameter:</td>
+                                        <td><input type="number"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Parameter 2:</td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="text-boxes">
+                <div id="console">
+                    Console
+                </div>
+                <div>
+                    JS Code
+                </div>
+            </div>
+        </div>
     </body>
 </html>

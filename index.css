@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Roboto&display=swap');
+
+body {
+    margin: 0;
+    background-image: url('/assets/background.png');
+
+    width: 100%;
+    height: 100%;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Passion One', sans-serif;
+    font-size: 3rem;
+}
+
+.delay-settings>input[type="number"] {
+    width: 3rem;
+}
+
+.seed-settings>input[type="number"] {
+    width: 8rem;
+}
+
+.settings-table {
+    margin: auto;
+}
+
+.settings-table td:first-child {
+    text-align: left;
+}
+
+.settings-table td:not(td:first-child) {
+    text-align: right;
+}
+
+.algorithm {
+    margin: 0.3rem 0.5rem;
+    padding: 0.2rem 1rem;
+
+    border: solid black;
+    border-radius: 0.3rem;
+}
+
+.algorithm>div:nth-child(1) {
+    display: flex;
+}
+
+.algorithm>div:nth-child(1)>*:nth-child(1) {
+    flex-grow: 1;
+}
+
+.algorithm table {
+    width: 80%;
+}
+
+.algorithm input[type="number"] {
+    width: 3rem;
+}
+
+#main-content {
+    margin: 2rem auto;
+    padding: 1rem 4rem;
+    max-width: 50rem;
+    border-radius: 0.5rem;
+    background-color: rgb(189 189 189);
+}
+
+#main-content>div {
+    padding: 0.25rem 0rem;
+}
+
+#main-controls {
+    margin: auto;
+    width: fit-content;
+}
+
+#main-panel {
+    display: flex;
+    column-gap: 1rem;
+}
+
+#main-panel>canvas {
+    flex-grow: 1;
+    aspect-ratio: 1;
+}
+
+#algorithms-panel {
+    padding: 1rem 1rem;
+    width: 16rem;
+    background-color: rgb(61, 61, 61);
+    border-radius: 0.2rem;
+}
+
+#algorithms-panel>hr {
+    border-color: black;
+}
+
+#algorithms-settings {
+    text-align: center;
+}
+
+#algorithms-settings table {
+    width: 80%;
+}
+
+#algorithms-list {
+    max-height: 25rem;
+    overflow: auto;
+}
+
+#text-boxes {
+    display: flex;
+    column-gap: 1rem;
+}
+
+#text-boxes>div {
+    flex-grow: 1;
+}
+
+#console {
+    background-color: rgb(155, 155, 155);
+}
