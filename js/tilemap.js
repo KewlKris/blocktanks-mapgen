@@ -14,6 +14,9 @@ class TileMap {
      * @param {Number} height 
      */
     constructor(width, height) {
+        this.#width = width;
+        this.#height = height;
+
         // Initialize the tile map
         this.#tileMap = [];
         for (let y=0; y<height; y++) {
