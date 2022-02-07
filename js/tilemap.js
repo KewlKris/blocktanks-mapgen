@@ -222,4 +222,7 @@ class Tile {
     }
 }
 
-export default TileMap;
+export {
+    TileMap,
+    Tile
+};
