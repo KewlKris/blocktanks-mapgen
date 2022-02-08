@@ -160,8 +160,15 @@ class CanvasManager {
 
         let drawnWidth = tileWidth * TILE_SIZE * tileScale;
         let drawnHeight = tileHeight * TILE_SIZE * tileScale;
+        let x = (this.#width / 2) - (drawnWidth / 2);
+        let y = (this.#height / 2) - (drawnHeight / 2);
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(x, y, drawnWidth, drawnHeight); // Draw the background
+
+        // Draw each canvas
         [this.#mapCanvas, this.#computationCanvas].forEach(canvas => {
-            ctx.drawImage(canvas, 0, 0, tileWidth * TILE_SIZE, tileHeight * TILE_SIZE, (this.#width / 2) - (drawnWidth / 2), (this.#height / 2) - (drawnHeight / 2), drawnWidth, drawnHeight);
+            ctx.drawImage(canvas, 0, 0, tileWidth * TILE_SIZE, tileHeight * TILE_SIZE, x, y, drawnWidth, drawnHeight);
         });
     }
     
