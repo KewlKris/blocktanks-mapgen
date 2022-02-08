@@ -80,6 +80,7 @@ body {
 #main-controls {
     margin: auto;
     width: fit-content;
+    text-align: center;
 }
 
 #main-panel {

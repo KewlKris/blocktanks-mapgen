@@ -12,9 +12,16 @@
             <div id="main-controls">
                 <span class="seed-settings">
                     <label for="seed-value">Seed:</label>
-                    <input type="text" min="0" id="seed-value">
+                    <input type="text" id="seed-value">
                 </span>
                 <input type="button" value="Randomize" id="randomize-button">
+                <input type="button" value="Generate Map" id="generate-button">
+                <span>
+                    <label>Auto-Generate:</label>
+                    <input type="checkbox" id="autogen-checkbox">
+                </span>
+                <br>
+                <input type="button" value="Play Animation" id="playanimation-button">
                 <span class="delay-settings">
                     <label>Animation Delay:</label>
                     <input type="number" min="0" value="4" id="delay-number"> ms
@@ -37,7 +44,7 @@
                                         <label>Width:</label>
                                     </td>
                                     <td>
-                                        <input type="number" min="3" max="75">
+                                        <input type="number" min="3" max="75" value="40" id="width-number">
                                     </td>
                                 </tr>
                                 <tr>
@@ -45,7 +52,7 @@
                                         <label>Height:</label>
                                     </td>
                                     <td>
-                                        <input type="number" min="3" max="75">
+                                        <input type="number" min="3" max="75" value="25" id="height-number">
                                     </td>
                                 </tr>
                                 <tr>
@@ -53,7 +60,7 @@
                                         <label>X Symmetry:</label>
                                     </td>
                                     <td>
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="xsymmetry-checkbox">
                                     </td>
                                 </tr>
                                 <tr>
@@ -61,7 +68,7 @@
                                         <label>Y Symmetry:</label>
                                     </td>
                                     <td>
-                                        <input type="checkbox">
+                                        <input type="checkbox" id="ysymmetry-checkbox">
                                     </td>
                                 </tr>
                             </table>
