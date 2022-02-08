@@ -48,6 +48,11 @@ body {
     display: flex;
 }
 
+.algorithm>div:nth-child(1)>* {
+    cursor: pointer;
+    user-select: none;
+}
+
 .algorithm>div:nth-child(1)>*:nth-child(1) {
     flex-grow: 1;
 }
