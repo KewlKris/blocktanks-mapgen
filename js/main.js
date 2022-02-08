@@ -1,23 +1,23 @@
 import TileMap from './tilemap.js';
 import CanvasManager from './canvasmanager.js';
+import AlgorithmManager from './algorithmmanager.js';
+import PRNG from './prng.js';
 
 async function init() {
     let canvasManager = new CanvasManager(document.getElementById('map-canvas'));
     await canvasManager.loadImages();
-    let map = new TileMap(30, 20);
-    map.animation.startRecording(map);
 
-    for (let y=0; y<10; y++) {
-        for (let x=0; x<10; x++) {
-            map.getTile(x+5, y+5).setType(Math.random() < 0.5 ? 'fence' : 'wall');
-        }
-    }
-    canvasManager.setMap(map);
-    canvasManager.drawMap();
-    canvasManager.updateMainCanvas
+    AlgorithmManager.initialize();
+    AlgorithmManager.addAlgorithm('random');
+    AlgorithmManager.updateAlgorithmList();
 
-    map.animation.stopRecording();
-    map.animation.playAnimation(canvasManager, 16, true);
+    // Initialize UI
+    randomizeSeed();
+    document.getElementById('randomize-button').addEventListener('click', () => randomizeSeed());
+}
+
+function randomizeSeed() {
+    document.getElementById('seed-value').value = PRNG.seedFromRand(Math.random);
 }
 
 // Initialize now or when the page finishes loading
