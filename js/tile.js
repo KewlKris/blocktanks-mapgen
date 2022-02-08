@@ -77,7 +77,7 @@ class Tile {
             if (this.#recordable) this.#map.animation.logTileUpdate(this);
         }
     }
-    
+
     /**
      * Make a deep copy of this tile
      * @returns {Tile}
@@ -98,6 +98,8 @@ class Tile {
      * @param {TileType} tileType 
      */
     setType(tileType) {
+        if (this.hasProperty('immutable')) return; // Don't change immutable tiles
+        
         this.#tileType = tileType;
         this.removeProperty('untouched');
 
