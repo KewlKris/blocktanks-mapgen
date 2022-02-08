@@ -1,4 +1,7 @@
-import {TileMap, Tile} from './tilemap.js';
+/**
+ * @typedef {import('./tilemap.js').default} TileMap
+ * @typedef {import('./tile.js').default} Tile
+ */
 
 const IMAGE_URLS = {
     'fence': './assets/fence.png',
@@ -6,6 +9,7 @@ const IMAGE_URLS = {
 };
 
 const TILE_SIZE = 100;
+const COMPUTATION_ALPHA = 0.5;
 
 class CanvasManager {
     /** @type {HTMLCanvasElement} */
@@ -140,6 +144,14 @@ class CanvasManager {
         }
     }
 
+    drawComputation(x, y, fillStyle) {
+        let ctx = this.#computationCanvas.getContext('2d');
+
+        ctx.globalAlpha = COMPUTATION_ALPHA;
+        ctx.fillStyle = fillStyle;
+        ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
     /**
      * Copy the map and computation canvases to the main canvas
      */
@@ -185,6 +197,7 @@ class CanvasManager {
                     resolve();
                 });
                 img.addEventListener('error', () => reject());
+                img.src = IMAGE_URLS[key];
             });
         });
 
