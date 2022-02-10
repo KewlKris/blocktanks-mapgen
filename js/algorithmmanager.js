@@ -152,12 +152,12 @@ class AlgorithmEntry {
                 case 'checkbox':
                     if (setting.randomFlip) {
                         input.checked = (Math.random() < 0.5);
-                    } else {
-                        input.checked = setting.default;
                     }
                     break;
                 case 'select':
-                    input.value = setting.randomValues[Math.floor(Math.random() * setting.randomValues.length)];
+                    if (setting.randomValues.length > 0) {
+                        input.value = setting.randomValues[Math.floor(Math.random() * setting.randomValues.length)];
+                    }
                     break;
             }
         });
