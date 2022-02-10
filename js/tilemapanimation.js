@@ -1,8 +1,8 @@
 import TileMap from './tilemap.js';
+import CanvasManager from './canvasmanager.js';
 
 /**
  * @typedef {import('./tile.js').default} Tile
- * @typedef {import('./canvasmanager.js').default} CanvasManager
  */
 
 class TileMapAnimation {
@@ -124,19 +124,18 @@ class TileMapAnimation {
 
     /**
      * Play a TileMap generation animation on the main canvas
-     * @param {CanvasManager} manager 
      * @param {Number} stepDelay 
      * @param {Boolean} showComputations 
      */
-    playAnimation(manager, stepDelay, showComputations) {
+    playAnimation(stepDelay, showComputations) {
         if (this.#isPlaying) {
             this.stopAnimation();
         }
 
         this.#isPlaying = true;
         let map = new TileMap(this.#width, this.#height);
-        manager.setMap(map);
-        manager.drawMap();
+        CanvasManager.setMap(map);
+        CanvasManager.drawMap();
 
         let startTime = Date.now();
         let logIndex = 0;
@@ -156,23 +155,23 @@ class TileMapAnimation {
                 // Handle this event
                 switch (currentLog.type) {
                     case 'tileUpdate':
-                        manager.drawTile(currentLog.tile);
+                        CanvasManager.drawTile(currentLog.tile);
                         break;
                     case 'mapState':
                         currentLog.tiles.forEach(tile => {
-                            manager.drawTile(tile);
+                            CanvasManager.drawTile(tile);
                         });
                         break;
                     case 'computation':
                         if (showComputations) {
-                            manager.drawComputation(currentLog.x, currentLog.y, currentLog.fillStyle);
+                            CanvasManager.drawComputation(currentLog.x, currentLog.y, currentLog.fillStyle);
                         } else {
                             stepOffset -= 1;
                         }
                         break;
                     case 'computationClear':
                         if (showComputations) {
-                            manager.clearComputationCanvas();
+                            CanvasManager.clearComputationCanvas();
                         } else {
                             stepOffset -= 1;
                         }
@@ -186,7 +185,7 @@ class TileMapAnimation {
                 this.stopAnimation();
             }
 
-            manager.updateMainCanvas();
+            CanvasManager.updateMainCanvas();
         };
         this.#animationRequest = window.requestAnimationFrame(animationLoop);
     }

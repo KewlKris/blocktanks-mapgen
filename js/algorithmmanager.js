@@ -1,10 +1,10 @@
+import CanvasManager from './canvasmanager.js';
 import PRNG from './prng.js';
 import Algorithm from './algorithms/algorithm.js';
 import Random from './algorithms/random.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
- * @typedef {import('./canvasmanager.js').default} CanvasManager
  */
 
 const ALGORITHMS = {
@@ -71,10 +71,9 @@ class AlgorithmManager {
     /**
      * Execute each algorithm in sequential order on the given TileMap
      * @param {TileMap} map 
-     * @param {CanvasManager} canvasManager
      * @param {Function} rand
      */
-    static async executeAlgorithms(map, canvasManager, rand) {
+    static async executeAlgorithms(map, rand) {
         for (let x=0; x<this.#algorithmEntries.length; x++) {
             let entry = this.#algorithmEntries[x];
             let entrySeedText = PRNG.seedFromRand(rand);
@@ -83,8 +82,8 @@ class AlgorithmManager {
 
             await entry.execute(map, entryRand);
 
-            canvasManager.drawMap();
-            canvasManager.updateMainCanvas();
+            CanvasManager.drawMap();
+            CanvasManager.updateMainCanvas();
         }
     }
 }

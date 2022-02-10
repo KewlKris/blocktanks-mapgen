@@ -13,34 +13,34 @@ const COMPUTATION_ALPHA = 0.5;
 
 class CanvasManager {
     /** @type {HTMLCanvasElement} */
-    #mainCanvas;
+    static #mainCanvas;
 
     /** @type {HTMLCanvasElement} */
-    #mapCanvas;
+    static #mapCanvas;
 
     /** @type {HTMLCanvasElement} */
-    #computationCanvas;
+    static #computationCanvas;
 
     /** @type {Object.<String, HTMLImageElement>} */
-    #images;
+    static #images;
 
     /** @type {Number} */
-    #width;
+    static #width;
 
     /** @type {Number} */
-    #height;
+    static #height;
 
     /**
      * The current TileMap
      * @type {TileMap}
      */
-    #map;
+    static #map;
 
     /**
-     * Initialize a new CanvasManager
+     * Initialize the CanvasManager
      * @param {HTMLCanvasElement} canvas 
      */
-    constructor(canvas) {
+    static initialize(canvas) {
         this.#images = {};
         this.#mainCanvas = canvas;
         this.#mapCanvas = document.createElement('canvas');
@@ -54,14 +54,14 @@ class CanvasManager {
      * Set the currently displayed TileMap
      * @param {TileMap} map 
      */
-    setMap(map) {
+    static setMap(map) {
         this.#map = map;
     }
 
     /**
      * Resize the main canvas to fit its css appearance
      */
-    updateCanvasSize() {
+    static updateCanvasSize() {
         let {width, height} = this.#mainCanvas.getBoundingClientRect();
         this.#width = width;
         this.#height = height;
@@ -76,7 +76,7 @@ class CanvasManager {
     /**
      * Update the dimensions of the internal canvases
      */
-    updateInternalCanvasDimensions() {
+    static updateInternalCanvasDimensions() {
         [this.#mapCanvas, this.#computationCanvas].forEach(canvas => {
             canvas.setAttribute('width', this.#map.getWidth() * TILE_SIZE);
             canvas.setAttribute('height', this.#map.getHeight() * TILE_SIZE);
@@ -84,9 +84,9 @@ class CanvasManager {
     }
 
     /**
-     * Update the main canvas to show the current state of a TileMap
+     * Update the map canvas to show the current state of a TileMap
      */
-    drawMap() {
+    static drawMap() {
         let tileWidth = this.#map.getWidth();
         let tileHeight = this.#map.getHeight();
 
@@ -106,7 +106,7 @@ class CanvasManager {
      * Draw a tile onto the map canvas
      * @param {Tile} tile 
      */
-    drawTile(tile) {
+    static drawTile(tile) {
         let {x, y} = tile.getCoords();
         x *= TILE_SIZE;
         y *= TILE_SIZE;
@@ -144,7 +144,7 @@ class CanvasManager {
         }
     }
 
-    drawComputation(x, y, fillStyle) {
+    static drawComputation(x, y, fillStyle) {
         let ctx = this.#computationCanvas.getContext('2d');
 
         ctx.globalAlpha = COMPUTATION_ALPHA;
@@ -155,7 +155,7 @@ class CanvasManager {
     /**
      * Copy the map and computation canvases to the main canvas
      */
-    updateMainCanvas() {
+    static updateMainCanvas() {
         let ctx = this.#mainCanvas.getContext('2d');
 
         let tileWidth = this.#map.getWidth();
@@ -188,7 +188,7 @@ class CanvasManager {
      * Load all required assets asynchronously
      * @async
      */
-    async loadImages() {
+    static async loadImages() {
         let promises = Object.keys(IMAGE_URLS).map(key => {
             return new Promise((resolve, reject) => {
                 let img = document.createElement('img');
@@ -207,14 +207,14 @@ class CanvasManager {
     /**
      * Clear the map canvas
      */
-    clearMapCanvas() {
+    static clearMapCanvas() {
         this.#clearCanvas(this.#mapCanvas);
     }
 
     /**
      * Clear the computation canvas
      */
-    clearComputationCanvas() {
+    static clearComputationCanvas() {
         this.#clearCanvas(this.#computationCanvas);
     }
 
@@ -222,7 +222,7 @@ class CanvasManager {
      * Clear a canvas
      * @param {HTMLCanvasElement} canvas
      */
-     #clearCanvas(canvas) {
+     static #clearCanvas(canvas) {
         let tileWidth = this.#map.getWidth();
         let tileHeight = this.#map.getHeight();
 
