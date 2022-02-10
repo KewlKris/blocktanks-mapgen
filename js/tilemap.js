@@ -2,6 +2,15 @@ import Tile from './tile.js';
 import TileMapAnimation from './tilemapanimation.js';
 
 class TileMap {
+    /**
+     * Overwrite: Replace any tile, Overlay: Replace empty tiles, Clear: Set to empty
+     * @typedef {'overwrite' | 'overlay' | 'clear'} BlendMode
+     */
+
+    /**
+     * @typedef {'none' | 'x' | 'y' | 'xy' | 'radial'} TileMapSymmetry
+     */
+
     /** @type {Number} */
     #width;
 
@@ -10,6 +19,15 @@ class TileMap {
 
     /** @type {Tile[][]} */
     #tileMap;
+
+    /** @type {BlendMode} */
+    #blendMode;
+
+    /** @type {TileMapSymmetry} */
+    #symmetry;
+
+    /** @type {Number} */
+    #symmetryPoints;
 
     /** @type {TileMapAnimation} */
     animation;
@@ -23,6 +41,8 @@ class TileMap {
         this.#width = width;
         this.#height = height;
         this.animation = new TileMapAnimation();
+        this.setBlendMode('overwrite');
+        this.setSymmetry('none');
 
         // Initialize the tile map
         this.#tileMap = [];
@@ -91,6 +111,43 @@ class TileMap {
      */
     getHeight() {
         return this.#height;
+    }
+
+    /**
+     * Set the current blend mode for the TileMap
+     * @param {BlendMode} mode 
+     */
+     setBlendMode(mode) {
+        this.#blendMode = mode;
+    }
+
+    /**
+     * Gets the current blend mode for the TileMap
+     * @returns {BlendMode}
+     */
+    getBlendMode() {
+        return this.#blendMode;
+    }
+
+    /**
+     * Set the TileMap symmetry
+     * @param {TileMapSymmetry} symmetry 
+     * @param {Number} [points=1] - The radial symmetry points. Only needed if symmetry is set to 'radial'
+     */
+    setSymmetry(symmetry, points=1) {
+        this.#symmetry = symmetry;
+        this.#symmetryPoints = points;
+    }
+
+    /**
+     * Get the TileMap symmetry
+     * @returns {{symmetry: TileMapSymmetry, points: Number}}
+     */
+    getSymmetry() {
+        return {
+            symmetry: this.#symmetry,
+            points: this.#symmetryPoints
+        }
     }
 }
 

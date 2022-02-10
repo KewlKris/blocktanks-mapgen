@@ -2,14 +2,16 @@ import CanvasManager from './canvasmanager.js';
 import PRNG from './prng.js';
 import Algorithm from './algorithms/algorithm.js';
 import Random from './algorithms/random.js';
+import SetSymmetry from './algorithms/setsymmetry.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
  */
 
 const ALGORITHMS = {
-    'random': Random
-}
+    'random': Random,
+    'setsymmetry': SetSymmetry
+};
 
 class AlgorithmManager {
     /** @type {AlgorithmEntry[]} */
@@ -145,6 +147,8 @@ class AlgorithmEntry {
 
             switch (setting.type) {
                 case 'number':
+                    if (setting.randomMin == undefined || setting.randomMax == undefined) break;
+
                     let intervalCount = ((setting.randomMax - setting.randomMin) / setting.step) + 1;
                     let interval = Math.floor(Math.random() * intervalCount);
                     input.value = setting.randomMin + (interval * setting.step);

@@ -31,7 +31,7 @@ class Random extends Algorithm {
         for (let y=0; y<height; y++) {
             for (let x=0; x<width; x++) {
                 let tile = map.getTile(x, y);
-                tile.setType((rand() < settings.wallChance) ? 'wall' : 'empty');
+                tile.symmetrySetType((rand() < settings.wallChance) ? 'wall' : 'empty');
             }
         }
     }

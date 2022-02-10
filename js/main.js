@@ -8,6 +8,7 @@ async function init() {
     CanvasManager.initialize(document.getElementById('map-canvas'));
     let canvasPromise = CanvasManager.loadImages();
     AlgorithmManager.initialize();
+    AlgorithmManager.addAlgorithm('setsymmetry');
     AlgorithmManager.addAlgorithm('random');
     AlgorithmManager.updateAlgorithmList();
 
