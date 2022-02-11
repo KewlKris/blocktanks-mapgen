@@ -19,7 +19,7 @@ class SetSymmetry extends Algorithm {
                 {label: 'XY', value: 'xy'},
                 {label: 'Radial', value: 'radial'},
             ],
-            randomValues: ['none', 'x', 'y', 'xy']
+            randomValues: ['none', 'x', 'y', 'xy', 'radial']
         },
         'symmetryPoints': {
             type: 'number',
