@@ -154,3 +154,7 @@ body {
     border: solid 1px rgb(118, 118, 118);
     outline: none;
 }
+
+#algorithms-add {
+    text-align: center;
+}

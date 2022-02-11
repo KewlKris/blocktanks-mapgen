@@ -26,6 +26,13 @@ async function init() {
         }
     });
     document.getElementById('generate-button').addEventListener('click', () => generateMap());
+    document.getElementById('algorithm-select').addEventListener('change', event => {
+        if (event.target.value != 'select') {
+            AlgorithmManager.addAlgorithm(event.target.value);
+            AlgorithmManager.updateAlgorithmList();
+        }
+        event.target.value = 'select';
+    });
 
     // Await promises
     await canvasPromise;
