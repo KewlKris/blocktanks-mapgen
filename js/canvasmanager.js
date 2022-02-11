@@ -157,6 +157,7 @@ class CanvasManager {
      */
     static updateMainCanvas() {
         let ctx = this.#mainCanvas.getContext('2d');
+        ctx.clearRect(0, 0, this.#width, this.#height);
 
         let tileWidth = this.#map.getWidth();
         let tileHeight = this.#map.getHeight();
