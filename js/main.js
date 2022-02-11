@@ -3,6 +3,9 @@ import CanvasManager from './canvasmanager.js';
 import AlgorithmManager from './algorithmmanager.js';
 import PRNG from './prng.js';
 
+/** @type {TileMap} */
+let latestMap = undefined;
+
 async function init() {
     // Initialize static classes
     CanvasManager.initialize(document.getElementById('map-canvas'));
@@ -25,7 +28,7 @@ async function init() {
             generateMap();
         }
     });
-    document.getElementById('algorithms-panel').addEventListener('change', () => {
+    document.getElementById('algorithms-panel').addEventListener('click', () => {
         if (document.getElementById('autogen-checkbox').checked) {
             generateMap();
         }
@@ -47,6 +50,8 @@ async function init() {
  * Generate a new BlockTanks map
  */
 async function generateMap() {
+    if (latestMap?.animation.isPlaying()) (latestMap.animation.stopAnimation());
+
     console.log('Starting map generation');
     let width = Number(document.getElementById('width-number').value);
     let height = Number(document.getElementById('height-number').value);
@@ -71,7 +76,9 @@ async function generateMap() {
         let delay = Number(document.getElementById('delay-number').value);
         map.animation.playAnimation(delay, true);
     };
-    console.log('Finished map generation')
+    console.log('Finished map generation');
+
+    latestMap = map;
 }
 
 function randomizeSeed() {

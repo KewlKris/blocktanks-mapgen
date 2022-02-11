@@ -199,6 +199,10 @@ class TileMapAnimation {
         return this.#isRecording;
     }
 
+    isPlaying() {
+        return this.#isPlaying;
+    }
+
     /**
      * Return the next step value
      * @returns {Number}
