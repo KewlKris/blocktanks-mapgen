@@ -3,6 +3,7 @@ import PRNG from './prng.js';
 import Algorithm from './algorithms/algorithm.js';
 import Random from './algorithms/random.js';
 import SetSymmetry from './algorithms/setsymmetry.js';
+import SetBlend from './algorithms/setblend.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
@@ -10,7 +11,8 @@ import SetSymmetry from './algorithms/setsymmetry.js';
 
 const ALGORITHMS = {
     'random': Random,
-    'setsymmetry': SetSymmetry
+    'setsymmetry': SetSymmetry,
+    'setblend': SetBlend
 };
 
 class AlgorithmManager {
