@@ -127,13 +127,16 @@ class Tile {
 
     /**
      * Set the type of this Tile and any other symmetrical Tiles
-     * @param {TileType} tileType 
+     * @param {TileType} tileType
+     * @returns {Tile[]} The tiles which were changed 
      */
     symmetrySetType(tileType) {
         let tiles = this.#getSymmetryTiles();
         tiles.forEach(tile => {
             tile.setType(tileType);
         });
+
+        return tiles;
     }
 
     /**
@@ -228,8 +231,8 @@ class Tile {
                 tiles.push(this.#map.getTile(Math.abs(x - (width-1)), Math.abs(y - (height-1))));
                 break;
             case 'radial':
-                let offsetX = ((width%2)==0) ? -width/2 : -(width-1)/2;
-                let offsetY = ((height%2)==0) ? -height/2 : -(height-1)/2;
+                let offsetX = -(width-1)/2;
+                let offsetY = -(height-1)/2;
                 let shiftedX = x + offsetX;
                 let shiftedY = y + offsetY;
                 shiftedY *= -1;
@@ -238,18 +241,17 @@ class Tile {
 
                 let angle = Math.atan2(shiftedY, shiftedX);
                 if (angle < 0) angle += (Math.PI * 2)
-                console.log('Base angle');
-                console.log(angle * (180 / Math.PI));
-                console.log('Base tile: ', x, y);
 
                 for (let i=0; i<points-1; i++) {
                     angle = (angle + radianShift) % (Math.PI*2);
-                    console.log('Shifted angle ' + i);
-                    console.log(angle * (180 / Math.PI));
 
-                    let newX = Math.floor(magnitude * Math.cos(angle)) - offsetX;
-                    let newY = (-1 * Math.floor(magnitude * Math.sin(angle))) - offsetY;
-                    console.log('Shifted tile: ', newX, newY);
+                    let newX = magnitude * Math.cos(angle);
+                    let newY = magnitude * Math.sin(angle);
+                    newY *= -1;
+                    newX -= offsetX;
+                    newY -= offsetY;
+                    newX = Math.round(newX);
+                    newY = Math.round(newY);
 
                     if (newX < 0 || newX >= width || newY < 0 || newY >= height) continue;
                     tiles.push(this.#map.getTile(newX, newY));

@@ -24,7 +24,7 @@ class SetSymmetry extends Algorithm {
         'symmetryPoints': {
             type: 'number',
             label: 'Radial Points',
-            default: 3,
+            default: 2,
             min: 2,
             max: 10,
             step: 1
