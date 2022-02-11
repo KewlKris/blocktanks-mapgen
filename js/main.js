@@ -25,6 +25,11 @@ async function init() {
             generateMap();
         }
     });
+    document.getElementById('algorithms-panel').addEventListener('change', () => {
+        if (document.getElementById('autogen-checkbox').checked) {
+            generateMap();
+        }
+    });
     document.getElementById('generate-button').addEventListener('click', () => generateMap());
     document.getElementById('algorithm-select').addEventListener('change', event => {
         if (event.target.value != 'select') {
