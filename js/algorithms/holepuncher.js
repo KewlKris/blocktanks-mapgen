@@ -55,12 +55,6 @@ class HolePuncher extends Algorithm {
 
             let uniqueValues = result.uniqueValues;
 
-            /*
-            console.log('Unique IDs:');
-            console.log(uniqueValues);
-            console.log(emptyTileList);
-            */
-
             if (uniqueValues.length == 1) return; // The map is completely accessible!
 
             let targetValue = uniqueValues[0]; // Take the first unique value (lowest count) and try to correct it

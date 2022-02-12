@@ -115,7 +115,7 @@ async function generateMap() {
     let rand = PRNG.prng(seedNumber);
 
     map.animation.startRecording(map);
-    await AlgorithmManager.executeAlgorithms(map, rand);
+    await AlgorithmManager.executeAlgorithms(map, rand, !document.getElementById('autogen-checkbox').checked);
     map.animation.stopRecording();
 
     CanvasManager.drawMap();

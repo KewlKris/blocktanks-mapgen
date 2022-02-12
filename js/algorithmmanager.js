@@ -96,8 +96,9 @@ class AlgorithmManager {
      * Execute each algorithm in sequential order on the given TileMap
      * @param {TileMap} map 
      * @param {Function} rand
+     * @param {Boolean} [executionDelay=false] - If true, add a delay between each algorithm executing to allow DOM repainting
      */
-    static async executeAlgorithms(map, rand) {
+    static async executeAlgorithms(map, rand, executionDelay=false) {
         for (let x=0; x<this.#algorithmEntries.length; x++) {
             let entry = this.#algorithmEntries[x];
             let entrySeedText = PRNG.seedFromRand(rand);
@@ -108,10 +109,12 @@ class AlgorithmManager {
 
             let log = ConsoleManager.log('Executing algorithm: ' + entry.getAlgorithm().NAME, 'yellow');
             
-            await new Promise((resolve, reject) => {
-                // Delay to allow DOM to repaint
-                setTimeout(() => resolve(), 100);
-            });
+            if (executionDelay) {
+                await new Promise((resolve, reject) => {
+                    // Delay to allow DOM to repaint
+                    setTimeout(() => resolve(), 100);
+                });
+            }
 
             map.animation.logComputationClear();
             try {
