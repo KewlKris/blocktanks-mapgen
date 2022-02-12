@@ -10,6 +10,7 @@ import NoDiagonals from './algorithms/nodiagonals.js';
 import BlobsAndNoodles from './algorithms/blobsandnoodles.js';
 import DensityRandom from './algorithms/densityrandom.js';
 import Fencifier from './algorithms/fencifier.js';
+import Propertifier from './algorithms/propertifier.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
@@ -23,7 +24,8 @@ const ALGORITHMS = {
     'nodiagonals': NoDiagonals,
     'blobsandnoodles': BlobsAndNoodles,
     'densityrandom': DensityRandom,
-    'fencifier': Fencifier
+    'fencifier': Fencifier,
+    'propertifier': Propertifier
 };
 
 class AlgorithmManager {
@@ -91,10 +93,10 @@ class AlgorithmManager {
 
     static applyPreset(preset) {
         this.#algorithmEntries = [];
-        Object.keys(preset).forEach(algorithmName => {
-            let entry = this.addAlgorithm(algorithmName);
-            entry.setSettingsValues(preset[algorithmName].settings);
-            entry.setMinimized(preset[algorithmName].minimized);
+        preset.forEach(algorithm => {
+            let entry = this.addAlgorithm(algorithm.algorithm);
+            entry.setSettingsValues(algorithm.settings);
+            entry.setMinimized(algorithm.minimized);
         });
 
         this.updateAlgorithmList();

@@ -139,7 +139,32 @@ class Tile {
         tiles.forEach(tile => {
             tile.setType(tileType);
         });
+        return tiles;
+    }
 
+    /**
+     * Add a property to this Tile and any other symmetrical Tiles
+     * @param {String} property 
+     * @returns {Tile[]} The tiles which were changed
+     */
+    symmetryAddProperty(property) {
+        let tiles = this.#getSymmetryTiles();
+        tiles.forEach(tile => {
+            tile.addProperty(property);
+        });
+        return tiles;
+    }
+
+    /**
+     * Remove a property from this Tile and any other symmetrical Tiles
+     * @param {String} property 
+     * @returns {Tile[]} The tiles which were changed
+     */
+    symmetryRemoveProperty(property) {
+        let tiles = this.#getSymmetryTiles();
+        tiles.forEach(tile => {
+            tile.removeProperty(property);
+        });
         return tiles;
     }
 
