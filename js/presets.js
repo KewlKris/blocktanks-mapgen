@@ -1,19 +1,19 @@
 export default {
-    'test': {
-        name: 'Test',
+    'generic': {
+        name: 'Generic',
         preset: {
             'setsymmetry': {
                 settings: {
                     'symmetryType': 'radial',
                     'symmetryPoints': 2
                 },
-                minimized: true
+                minimized: false
             },
-            'random': {
+            'densityrandom': {
                 settings: {
                     'tile1': 'wall',
                     'tile2': 'empty',
-                    'chance': 0.3
+                    'targetDensity': 2
                 },
                 minimized: false
             },
@@ -21,13 +21,13 @@ export default {
                 settings: {
                     'punchRate': 0.2
                 },
-                minimized: false
+                minimized: true
             },
             'nodiagonals': {
                 settings: {
                     'tile': 'wall'
                 },
-                minimized: false
+                minimized: true
             }
         }
     }
