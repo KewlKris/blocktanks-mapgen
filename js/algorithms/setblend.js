@@ -1,4 +1,5 @@
 import Algorithm from './algorithm.js';
+import ConsoleManager from '../consolemanager.js';
 
 /**
  * @typedef {import('../tilemap.js').default} TileMap
@@ -27,6 +28,7 @@ class SetBlend extends Algorithm {
      * @param {Function} rand 
      */
     static async execute(map, settings, rand) {
+        ConsoleManager.log(`Setting blend mode to: ${settings.blendMode}`, 'green');
         map.setBlendMode(settings.blendMode);
     }
 }

@@ -1,4 +1,5 @@
 import Algorithm from './algorithm.js';
+import ConsoleManager from '../consolemanager.js';
 
 /**
  * @typedef {import('../tilemap.js').default} TileMap
@@ -37,6 +38,7 @@ class SetSymmetry extends Algorithm {
      * @param {Function} rand 
      */
     static async execute(map, settings, rand) {
+        ConsoleManager.log(`Symmetry Type: ${settings.symmetryType} Radial Points: ${settings.symmetryPoints}`, 'green');
         map.setSymmetry(settings.symmetryType, settings.symmetryPoints);
     }
 }

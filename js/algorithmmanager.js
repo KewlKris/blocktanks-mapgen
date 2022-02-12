@@ -1,4 +1,5 @@
 import CanvasManager from './canvasmanager.js';
+import ConsoleManager from './consolemanager.js';
 import PRNG from './prng.js';
 import Algorithm from './algorithms/algorithm.js';
 import Random from './algorithms/random.js';
@@ -84,7 +85,14 @@ class AlgorithmManager {
             let entrySeedNumber = PRNG.hash(entrySeedText);
             let entryRand = PRNG.prng(entrySeedNumber);
 
-            await entry.execute(map, entryRand);
+            let log = ConsoleManager.log('Executing algorithm: ' + entry.getAlgorithm().NAME, 'yellow');
+            try {
+                await entry.execute(map, entryRand);
+                log.setColor('green');
+            } catch (error) {
+                log.setColor('red');
+                ConsoleManager.log(error, 'red');
+            }
 
             CanvasManager.drawMap();
             CanvasManager.updateMainCanvas();
@@ -93,9 +101,6 @@ class AlgorithmManager {
 }
 
 class AlgorithmEntry {
-    /** @type {String} */
-    #name;
-
     /**
      * The uninstantialized class of this algorithm
      * @type {Algorithm}
@@ -114,7 +119,6 @@ class AlgorithmEntry {
     #isMinimized;
 
     constructor(name) {
-        this.#name = name;
         this.#algorithm = ALGORITHMS[name];
 
         this.#buildHTML();
@@ -214,6 +218,10 @@ class AlgorithmEntry {
 
         let settingsDiv = this.#element.querySelectorAll('div')[1];
         settingsDiv.style.display = value ? 'none' : '';
+    }
+
+    getAlgorithm() {
+        return this.#algorithm;
     }
 
     #buildHTML() {

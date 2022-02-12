@@ -130,10 +130,10 @@ body {
 }
 
 #console {
-    background-color: white;
+    background-color: #363636;
     padding: 0rem 0.5rem;
-
     border: solid 1px rgb(118, 118, 118);
+    overflow: auto;
 }
 
 #jscode {
@@ -157,4 +157,16 @@ body {
 
 #algorithms-add {
     text-align: center;
+}
+
+.console-red {
+    color: red;
+}
+
+.console-yellow {
+    color: yellow;
+}
+
+.console-green {
+    color: lime;
 }
