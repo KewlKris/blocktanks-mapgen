@@ -22,6 +22,12 @@ export default {
                     'punchRate': 0.2
                 },
                 minimized: false
+            },
+            'nodiagonals': {
+                settings: {
+                    'tile': 'wall'
+                },
+                minimized: false
             }
         }
     }

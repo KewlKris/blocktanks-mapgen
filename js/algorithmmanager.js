@@ -6,6 +6,7 @@ import Random from './algorithms/random.js';
 import SetSymmetry from './algorithms/setsymmetry.js';
 import SetBlend from './algorithms/setblend.js';
 import HolePuncher from './algorithms/holepuncher.js';
+import NoDiagonals from './algorithms/nodiagonals.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
@@ -15,7 +16,8 @@ const ALGORITHMS = {
     'random': Random,
     'setsymmetry': SetSymmetry,
     'setblend': SetBlend,
-    'holepuncher': HolePuncher
+    'holepuncher': HolePuncher,
+    'nodiagonals': NoDiagonals
 };
 
 class AlgorithmManager {
