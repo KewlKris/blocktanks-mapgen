@@ -114,6 +114,7 @@ class CanvasManager {
         let ctx = this.#mapCanvas.getContext('2d');
 
         // Draw the tile type
+        ctx.clearRect(x, y, TILE_SIZE, TILE_SIZE);
         switch (tile.getType()) {
             case 'empty':
                 ctx.clearRect(x, y, TILE_SIZE, TILE_SIZE);

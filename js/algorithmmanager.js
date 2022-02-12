@@ -9,6 +9,7 @@ import HolePuncher from './algorithms/holepuncher.js';
 import NoDiagonals from './algorithms/nodiagonals.js';
 import BlobsAndNoodles from './algorithms/blobsandnoodles.js';
 import DensityRandom from './algorithms/densityrandom.js';
+import Fencifier from './algorithms/fencifier.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
@@ -21,7 +22,8 @@ const ALGORITHMS = {
     'holepuncher': HolePuncher,
     'nodiagonals': NoDiagonals,
     'blobsandnoodles': BlobsAndNoodles,
-    'densityrandom': DensityRandom
+    'densityrandom': DensityRandom,
+    'fencifier': Fencifier
 };
 
 class AlgorithmManager {

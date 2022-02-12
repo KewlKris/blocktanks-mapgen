@@ -28,6 +28,13 @@ export default {
                     'tile': 'wall'
                 },
                 minimized: true
+            },
+            'fencifier': {
+                settings: {
+                    'chance': 0.1,
+                    'loneWalls': true,
+                    'throughWalls': true
+                }
             }
         }
     }
