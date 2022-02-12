@@ -51,6 +51,8 @@ class Tile {
      * @param {String} property 
      */
     addProperty(property) {
+        if (this.hasProperty('immutable')) return; // Prevent adding properties to immutable tiles
+
         if (this.#properties.indexOf(property) == -1) {
             this.#properties.push(property);
             if (this.#recordable) this.#map.animation.logTileUpdate(this);
@@ -71,6 +73,8 @@ class Tile {
      * @param {String} property 
      */
     removeProperty(property) {
+        if (this.hasProperty('immutable') && property != 'immutable') return; // Prevent removing properties from immutable tiles
+
         let index = this.#properties.indexOf(property);
         if (index != -1) {
             this.#properties.splice(index, 1);
