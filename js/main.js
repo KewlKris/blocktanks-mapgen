@@ -80,6 +80,12 @@ async function init() {
     let presetIndex = Math.floor(Math.random() * Object.keys(Presets).length);
     AlgorithmManager.applyPreset(Presets[Object.keys(Presets)[presetIndex]].preset);
 
+    // Set random width and height
+    let width = Math.floor(Math.random() * 50) + 15;
+    let height = Math.floor(Math.random() * 50) + 15;
+    document.getElementById('width-number').value = width;
+    document.getElementById('height-number').value = height;
+
     // Start first map generation
     generateMap();
 }
@@ -117,7 +123,7 @@ async function generateMap() {
 
     document.getElementById('playanimation-button').onclick = () => {
         let delay = Number(document.getElementById('delay-number').value);
-        map.animation.playAnimation(1000 / delay, true);
+        map.animation.playAnimation(1000 / delay, document.getElementById('showcomputation-checkbox').checked);
     };
 
     generateJSCode(map);

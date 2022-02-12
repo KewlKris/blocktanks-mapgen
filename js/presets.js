@@ -3,20 +3,34 @@ export default {
         name: 'Test',
         preset: {
             'setsymmetry': {
-                'symmetryType': {
-                    type: 'select',
-                    value: 'radial'
+                settings: {
+                    'symmetryType': {
+                        type: 'select',
+                        value: 'radial'
+                    },
+                    'symmetryPoints': {
+                        type: 'number',
+                        value: 2
+                    }
                 },
-                'symmetryPoints': {
-                    type: 'number',
-                    value: 2
-                }
+                minimized: true
             },
             'random': {
-                'wallChance': {
-                    type: 'number',
-                    value: '0.3'
-                }
+                settings: {
+                    'tile1': {
+                        type: 'select',
+                        value: 'wall'
+                    },
+                    'tile2': {
+                        type: 'select',
+                        value: 'empty'
+                    },
+                    'chance': {
+                        type: 'number',
+                        value: '0.3'
+                    }
+                },
+                minimized: false
             }
         }
     }

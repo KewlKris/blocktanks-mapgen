@@ -83,7 +83,8 @@ class AlgorithmManager {
         this.#algorithmEntries = [];
         Object.keys(preset).forEach(algorithmName => {
             let entry = this.addAlgorithm(algorithmName);
-            entry.setSettingsValues(preset[algorithmName]);
+            entry.setSettingsValues(preset[algorithmName].settings);
+            entry.setMinimized(preset[algorithmName].minimized);
         });
 
         this.updateAlgorithmList();
@@ -139,6 +140,7 @@ class AlgorithmEntry {
 
         this.#buildHTML();
         this.setMinimized(false);
+        this.resetSettings();
     }
 
     resetSettings() {
