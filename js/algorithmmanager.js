@@ -24,9 +24,15 @@ class AlgorithmManager {
         this.#algorithmEntries = [];
     }
 
+    /**
+     * Add an algorithm to the algorithms list
+     * @param {String} name - The name of the added algorithm
+     * @returns {AlgorithmEntry}
+     */
     static addAlgorithm(name) {
         let entry = new AlgorithmEntry(name);
         this.#algorithmEntries.push(entry);
+        return entry;
     }
 
     /**
@@ -71,6 +77,16 @@ class AlgorithmManager {
         this.#algorithmEntries.forEach(entry => {
             list.appendChild(entry.getElement());
         });
+    }
+
+    static applyPreset(preset) {
+        this.#algorithmEntries = [];
+        Object.keys(preset).forEach(algorithmName => {
+            let entry = this.addAlgorithm(algorithmName);
+            entry.setSettingsValues(preset[algorithmName]);
+        });
+
+        this.updateAlgorithmList();
     }
 
     /**
@@ -197,6 +213,29 @@ class AlgorithmEntry {
         });
 
         return settings;
+    }
+    
+    /**
+     * Set the settings for this algorithm. Used when applying a preset
+     * @param {Object.<String, {varName: String, value: Any}[]>} settings 
+     */
+    setSettingsValues(settings) {
+        Object.keys(settings).forEach(varName => {
+            let setting = settings[varName];
+            let input = this.#settingsElements[varName];
+
+            switch (setting.type) {
+                case 'number':
+                    input.value = Number(setting.value);
+                    break;
+                case 'checkbox':
+                    input.checked = Boolean(setting.checked);
+                    break;
+                case 'select':
+                    input.value = String(setting.value);
+                    break;
+            }
+        });
     }
 
     /**

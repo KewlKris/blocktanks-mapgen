@@ -3,9 +3,13 @@ import CanvasManager from './canvasmanager.js';
 import AlgorithmManager from './algorithmmanager.js';
 import ConsoleManager from './consolemanager.js';
 import PRNG from './prng.js';
+import Presets from './presets.js';
 
 /** @type {TileMap} */
 let latestMap = undefined;
+
+/** @type {Boolean} */
+let generatingMap = false;
 
 async function init() {
     // Initialize static classes
@@ -16,6 +20,8 @@ async function init() {
     AlgorithmManager.addAlgorithm('random');
     AlgorithmManager.updateAlgorithmList();
     ConsoleManager.initialize();
+
+    let presetSelect = document.getElementById('preset-select');
 
     // Initialize UI
     randomizeSeed();
@@ -35,17 +41,44 @@ async function init() {
             generateMap();
         }
     });
+    document.getElementById('algorithms-list').addEventListener('click', () => {
+        presetSelect.value = 'custom';
+    });
     document.getElementById('generate-button').addEventListener('click', () => generateMap());
     document.getElementById('algorithm-select').addEventListener('change', event => {
         if (event.target.value != 'select') {
             AlgorithmManager.addAlgorithm(event.target.value);
             AlgorithmManager.updateAlgorithmList();
+            presetSelect.value = 'custom';
         }
         event.target.value = 'select';
+    });
+    
+    // Initialize presets
+    Object.keys(Presets).forEach(presetName => {
+        let preset = Presets[presetName];
+        let option = document.createElement('option');
+        option.value = presetName;
+        option.innerText = preset.name;
+        presetSelect.appendChild(option);
+    });
+    let customOption = document.createElement('option');
+    customOption.value = 'custom';
+    customOption.innerText = 'Custom';
+    presetSelect.appendChild(customOption);
+    presetSelect.addEventListener('change', () => {
+        if (presetSelect.value == 'custom') return;
+
+        // Apply this preset
+        AlgorithmManager.applyPreset(Presets[presetSelect.value].preset);
     });
 
     // Await promises
     await canvasPromise;
+
+    // Pick a random preset
+    let presetIndex = Math.floor(Math.random() * Object.keys(Presets).length);
+    AlgorithmManager.applyPreset(Presets[Object.keys(Presets)[presetIndex]].preset);
 
     // Start first map generation
     generateMap();
@@ -55,8 +88,10 @@ async function init() {
  * Generate a new BlockTanks map
  */
 async function generateMap() {
+    if (generatingMap) return;
     if (latestMap?.animation.isPlaying()) (latestMap.animation.stopAnimation());
 
+    generatingMap = true;
     ConsoleManager.clear();
     ConsoleManager.log('Starting map generation!', 'green');
     let width = Number(document.getElementById('width-number').value);
@@ -90,6 +125,7 @@ async function generateMap() {
     ConsoleManager.log('Finished map generation!', 'green');
 
     latestMap = map;
+    generatingMap = false;
 }
 
 function randomizeSeed() {
