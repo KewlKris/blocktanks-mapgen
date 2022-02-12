@@ -55,10 +55,11 @@ body {
 
 .algorithm>div:nth-child(1)>*:nth-child(1) {
     flex-grow: 1;
+    font-weight: bold;
 }
 
 .algorithm table {
-    width: 80%;
+    width: 100%;
 }
 
 .algorithm input[type="number"] {

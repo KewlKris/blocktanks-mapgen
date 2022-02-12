@@ -149,6 +149,7 @@ class CanvasManager {
 
         ctx.globalAlpha = COMPUTATION_ALPHA;
         ctx.fillStyle = fillStyle;
+        ctx.clearRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 

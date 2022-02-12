@@ -4,31 +4,22 @@ export default {
         preset: {
             'setsymmetry': {
                 settings: {
-                    'symmetryType': {
-                        type: 'select',
-                        value: 'radial'
-                    },
-                    'symmetryPoints': {
-                        type: 'number',
-                        value: 2
-                    }
+                    'symmetryType': 'radial',
+                    'symmetryPoints': 2
                 },
                 minimized: true
             },
             'random': {
                 settings: {
-                    'tile1': {
-                        type: 'select',
-                        value: 'wall'
-                    },
-                    'tile2': {
-                        type: 'select',
-                        value: 'empty'
-                    },
-                    'chance': {
-                        type: 'number',
-                        value: '0.3'
-                    }
+                    'tile1': 'wall',
+                    'tile2': 'empty',
+                    'chance': 0.3
+                },
+                minimized: false
+            },
+            'holepuncher': {
+                settings: {
+                    'punchRate': 0.2
                 },
                 minimized: false
             }

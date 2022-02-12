@@ -5,6 +5,7 @@ import Algorithm from './algorithms/algorithm.js';
 import Random from './algorithms/random.js';
 import SetSymmetry from './algorithms/setsymmetry.js';
 import SetBlend from './algorithms/setblend.js';
+import HolePuncher from './algorithms/holepuncher.js';
 
 /**
  * @typedef {import('./tilemap.js').default} TileMap
@@ -13,7 +14,8 @@ import SetBlend from './algorithms/setblend.js';
 const ALGORITHMS = {
     'random': Random,
     'setsymmetry': SetSymmetry,
-    'setblend': SetBlend
+    'setblend': SetBlend,
+    'holepuncher': HolePuncher
 };
 
 class AlgorithmManager {
@@ -102,18 +104,30 @@ class AlgorithmManager {
             let entrySeedNumber = PRNG.hash(entrySeedText);
             let entryRand = PRNG.prng(entrySeedNumber);
 
+            if (!entry.getEnabled()) continue; // This algorithm is disabled
+
             let log = ConsoleManager.log('Executing algorithm: ' + entry.getAlgorithm().NAME, 'yellow');
+            
+            await new Promise((resolve, reject) => {
+                // Delay to allow DOM to repaint
+                setTimeout(() => resolve(), 100);
+            });
+
+            map.animation.logComputationClear();
             try {
                 await entry.execute(map, entryRand);
                 log.setColor('green');
             } catch (error) {
                 log.setColor('red');
                 ConsoleManager.log(error, 'red');
+                console.error(error);
             }
 
             CanvasManager.drawMap();
             CanvasManager.updateMainCanvas();
         }
+
+        map.animation.logComputationClear();
     }
 }
 
@@ -135,12 +149,16 @@ class AlgorithmEntry {
     /** @type {Boolean} */
     #isMinimized;
 
+    /** @type {Boolean} */
+    #isEnabled;
+
     constructor(name) {
         this.#algorithm = ALGORITHMS[name];
 
         this.#buildHTML();
         this.setMinimized(false);
         this.resetSettings();
+        this.setEnabled(true);
     }
 
     resetSettings() {
@@ -222,19 +240,22 @@ class AlgorithmEntry {
      * @param {Object.<String, {varName: String, value: Any}[]>} settings 
      */
     setSettingsValues(settings) {
+        let template = this.#algorithm.SETTINGS_TEMPLATE;
+
         Object.keys(settings).forEach(varName => {
-            let setting = settings[varName];
+            let value = settings[varName];
+            let type = template[varName].type;
             let input = this.#settingsElements[varName];
 
-            switch (setting.type) {
+            switch (type) {
                 case 'number':
-                    input.value = Number(setting.value);
+                    input.value = Number(value);
                     break;
                 case 'checkbox':
-                    input.checked = Boolean(setting.checked);
+                    input.checked = Boolean(value);
                     break;
                 case 'select':
-                    input.value = String(setting.value);
+                    input.value = String(value);
                     break;
             }
         });
@@ -265,6 +286,14 @@ class AlgorithmEntry {
         return this.#algorithm;
     }
 
+    setEnabled(value) {
+        this.#isEnabled = value;
+    }
+
+    getEnabled() {
+        return this.#isEnabled;
+    }
+
     #buildHTML() {
         let create = el => document.createElement(el);
 
@@ -275,6 +304,12 @@ class AlgorithmEntry {
         let nameSpan = create('span');
         nameSpan.innerText = this.#algorithm.NAME;
         nameSpan.addEventListener('click', () => this.setMinimized(!this.#isMinimized));
+        let enabledSpan = create('span');
+        let enabledCheckbox = create('input');
+        enabledCheckbox.type = 'checkbox';
+        enabledCheckbox.checked = true;
+        enabledCheckbox.addEventListener('click', () => this.setEnabled(enabledCheckbox.checked));
+        enabledSpan.appendChild(enabledCheckbox);
         let resetSpan = create('span');
         resetSpan.innerText = '↻';
         resetSpan.addEventListener('click', () => this.resetSettings());
@@ -290,7 +325,7 @@ class AlgorithmEntry {
         let removeSpan = create('span');
         removeSpan.innerText = 'X';
         removeSpan.addEventListener('click', () => AlgorithmManager.removeAlgorithmEntry(this));
-        [nameSpan, resetSpan, randomSpan, moveUpSpan, moveDownSpan, removeSpan].forEach(el => headerDiv.appendChild(el));
+        [nameSpan, enabledSpan, resetSpan, randomSpan, moveUpSpan, moveDownSpan, removeSpan].forEach(el => headerDiv.appendChild(el));
 
         // Add settings
         let settingsDiv = create('div');

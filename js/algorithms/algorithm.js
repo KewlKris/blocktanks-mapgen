@@ -3,7 +3,6 @@
  * @typedef {import('../tile.js').default} Tile
  */
 
-
 /**
  * This is an Abstract class and is not intended to be used directly
  */

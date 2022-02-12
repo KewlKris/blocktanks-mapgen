@@ -81,8 +81,8 @@ async function init() {
     AlgorithmManager.applyPreset(Presets[Object.keys(Presets)[presetIndex]].preset);
 
     // Set random width and height
-    let width = Math.floor(Math.random() * 50) + 15;
-    let height = Math.floor(Math.random() * 50) + 15;
+    let width = Math.floor(Math.random() * 20) + 15;
+    let height = Math.floor(Math.random() * 20) + 15;
     document.getElementById('width-number').value = width;
     document.getElementById('height-number').value = height;
 
@@ -95,7 +95,7 @@ async function init() {
  */
 async function generateMap() {
     if (generatingMap) return;
-    if (latestMap?.animation.isPlaying()) (latestMap.animation.stopAnimation());
+    if (latestMap?.animation.isPlaying()) latestMap.animation.stopAnimation();
 
     generatingMap = true;
     ConsoleManager.clear();

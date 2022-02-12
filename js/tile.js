@@ -159,7 +159,7 @@ class Tile {
         return this.#getTileFromOffset(-1, 0);
     }
 
-    get TileRight() {
+    get tileRight() {
         return this.#getTileFromOffset(1, 0);
     }
 
