@@ -44,6 +44,9 @@ async function init() {
 
     // Await promises
     await canvasPromise;
+
+    // Start first map generation
+    generateMap();
 }
 
 /**
@@ -74,7 +77,7 @@ async function generateMap() {
 
     document.getElementById('playanimation-button').onclick = () => {
         let delay = Number(document.getElementById('delay-number').value);
-        map.animation.playAnimation(delay, true);
+        map.animation.playAnimation(1000 / delay, true);
     };
     console.log('Finished map generation');
 
