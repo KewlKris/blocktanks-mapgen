@@ -171,7 +171,7 @@ function generateJSCode(tilemap) {
             let tile = tilemap.getTile(x, y);
             let mapCoords = [
                 (x * 100) + 50,
-                (y + 100) + 50
+                (y * 100) + 50
             ];
 
             let id;
