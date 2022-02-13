@@ -61,9 +61,9 @@ export default {
                     'cozyTile': 'wall',
                     'property': 'weapon_spawn',
                     'cozyBias': 0.5,
-                    'diagonalCozy': true,
-                    'selfCozy': true,
-                    'rate': 30
+                    'diagonalCozy': false,
+                    'selfCozy': false,
+                    'rate': 40
                 },
                 minimized: false
             },
